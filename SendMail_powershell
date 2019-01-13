@@ -1,0 +1,25 @@
+##Developer : Suresh Kumar
+##Date   : 25 October 2018
+## Variables definition
+
+$EmailFromAddress = "XYZ1989@gmail.com"
+$EmailToAddress = "TargetEmail"      ## The mail id to which we need to send file
+$Subject = "ACtion Required"
+$Body = “What do you want your email to say”   ## Message to body
+$attachment = "C:\Tableau Files\test.txt"   ## File Location
+$smtpserver = "smtp.gmail.com"
+
+##Mail configuration
+
+$message = new-object System.Net.Mail.MailMessage
+$message.From = $EmailFromAddress
+$message.To.Add($EmailToAddress)
+$message.IsBodyHtml = $True
+$message.Subject = $Subject
+$attach = new-object Net.Mail.Attachment($attachment)
+$message.Attachments.Add($attach)
+$message.body = $Body
+$smtp = new-object Net.Mail.SmtpClient($smtpserver,587)
+$smtp.EnableSsl = $True
+$smtp.Credentials = New-Object System.Net.NetworkCredential('YourMail','PASSWORD');
+$smtp.Send($message)  
